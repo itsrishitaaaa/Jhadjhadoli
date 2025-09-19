@@ -1,0 +1,378 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ultimate Fun Plant Care Tips | JhadJhadoli</title>
+<style>
+body {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background: #f0f7f5;
+  margin: 0;
+  padding: 20px;
+  color: #333;
+}
+h1 {
+  text-align: center;
+  margin-bottom: 10px;
+  color: #2e7d32;
+}
+#tipOfDay {
+  text-align: center;
+  background: #fffae6;
+  padding: 15px;
+  margin-bottom: 20px;
+  border-radius: 10px;
+  font-weight: bold;
+  font-size: 1.2em;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+}
+#progressContainer {
+  width: 100%;
+  background: #ddd;
+  border-radius: 20px;
+  margin-bottom: 20px;
+}
+#progressBar {
+  width: 0%;
+  height: 20px;
+  background: #2e7d32;
+  border-radius: 20px;
+  text-align: center;
+  color: white;
+  line-height: 20px;
+  font-size: 0.9em;
+  transition: width 0.3s ease;
+}
+.filter-buttons {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  margin-bottom: 20px;
+}
+.filter-buttons button {
+  margin: 5px;
+  padding: 8px 12px;
+  border: none;
+  border-radius: 6px;
+  background: #2e7d32;
+  color: white;
+  cursor: pointer;
+  transition: background 0.3s;
+}
+.filter-buttons button:hover {
+  background: #1b5e20;
+}
+.tips-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 25px;
+}
+.tip-card {
+  background: #fff;
+  border-radius: 12px;
+  box-shadow: 0 6px 15px rgba(0,0,0,0.1);
+  cursor: pointer;
+  perspective: 1000px;
+  position: relative;
+  transition: transform 0.3s ease;
+  min-height: 220px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 15px;
+  box-sizing: border-box;
+}
+.tip-card:hover {
+  transform: translateY(-5px);
+}
+.tip-inner {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  text-align: center;
+  transition: transform 0.6s;
+  transform-style: preserve-3d;
+}
+.tip-card.flip .tip-inner {
+  transform: rotateY(180deg);
+}
+.tip-front, .tip-back {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  border-radius: 12px;
+  backface-visibility: hidden;
+  padding: 20px;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+.tip-front {
+  background: #e0f2f1;
+  font-size: 1.1em;
+}
+.tip-front:hover img {
+  transform: rotate(20deg);
+}
+.tip-back {
+  background: #c8e6c9;
+  transform: rotateY(180deg);
+  font-size: 0.95em;
+}
+.check-btn {
+  margin-top: 15px;
+  padding: 8px 12px;
+  border: none;
+  background: #2e7d32;
+  color: white;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background 0.3s;
+}
+.check-btn:hover {
+  background: #1b5e20;
+}
+.done {
+  text-decoration: line-through;
+  opacity: 0.7;
+}
+canvas {
+  position: absolute;
+  pointer-events: none;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+@media(max-width: 600px){
+  .tip-card {
+    min-height: 220px;
+  }
+}
+</style>
+</head>
+<body>
+
+<h1>🌱 Ultimate Fun Plant Care Tips 🌿</h1>
+<div id="tipOfDay">Tip of the Day: 💧 Use the wick system for consistent watering!</div>
+
+<div id="progressContainer">
+  <div id="progressBar">0%</div>
+</div>
+
+<div class="filter-buttons">
+  <button data-filter="all">All</button>
+  <button data-filter="water">Watering 💧</button>
+  <button data-filter="nutrients">Nutrients 🌿</button>
+  <button data-filter="environment">Environment 🌱</button>
+  <button data-filter="habits">Habits ✨</button>
+</div>
+
+<div class="tips-container">
+  <!-- Watering Tips -->
+  <div class="tip-card" data-category="water">
+    <div class="tip-inner">
+      <div class="tip-front">💧 Wick System</div>
+      <div class="tip-back">
+        Use a cotton/nylon wick from water container into soil for consistent moisture.
+        <button class="check-btn">Mark Done ✅</button>
+      </div>
+    </div>
+  </div>
+  <div class="tip-card" data-category="water">
+    <div class="tip-inner">
+      <div class="tip-front">💧 Bath Method</div>
+      <div class="tip-back">
+        Place large potted plants in a few inches of water to hydrate through drainage holes.
+        <button class="check-btn">Mark Done ✅</button>
+      </div>
+    </div>
+  </div>
+  <div class="tip-card" data-category="water">
+    <div class="tip-inner">
+      <div class="tip-front">💧 DIY Watering Globe</div>
+      <div class="tip-back">
+        Recycle a bottle with holes in soil to slowly release water.
+        <button class="check-btn">Mark Done ✅</button>
+      </div>
+    </div>
+  </div>
+  <div class="tip-card" data-category="water">
+    <div class="tip-inner">
+      <div class="tip-front">💧 Rainwater Harvesting</div>
+      <div class="tip-back">
+        Collect rainwater to water plants; free of chemicals and salts.
+        <button class="check-btn">Mark Done ✅</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Nutrient Tips -->
+  <div class="tip-card" data-category="nutrients">
+    <div class="tip-inner">
+      <div class="tip-front">🍌 Banana Peels</div>
+      <div class="tip-back">
+        Chop and bury near roots for potassium boost.
+        <button class="check-btn">Mark Done ✅</button>
+      </div>
+    </div>
+  </div>
+  <div class="tip-card" data-category="nutrients">
+    <div class="tip-inner">
+      <div class="tip-front">☕ Coffee Grounds</div>
+      <div class="tip-back">
+        Adds nitrogen for acid-loving plants. Sprinkle thinly.
+        <button class="check-btn">Mark Done ✅</button>
+      </div>
+    </div>
+  </div>
+  <div class="tip-card" data-category="nutrients">
+    <div class="tip-inner">
+      <div class="tip-front">🥚 Eggshells</div>
+      <div class="tip-back">
+        Crush and mix into soil to provide calcium and neutralize acidity.
+        <button class="check-btn">Mark Done ✅</button>
+      </div>
+    </div>
+  </div>
+  <div class="tip-card" data-category="nutrients">
+    <div class="tip-inner">
+      <div class="tip-front">💧 Epsom Salt Spray</div>
+      <div class="tip-back">
+        2 tbsp per gallon water; remedies magnesium deficiency.
+        <button class="check-btn">Mark Done ✅</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Environment Tips -->
+  <div class="tip-card" data-category="environment">
+    <div class="tip-inner">
+      <div class="tip-front">🌿 Relocate for Humidity</div>
+      <div class="tip-back">
+        Group tropical plants or use pebble trays for humid microclimate.
+        <button class="check-btn">Mark Done ✅</button>
+      </div>
+    </div>
+  </div>
+  <div class="tip-card" data-category="environment">
+    <div class="tip-inner">
+      <div class="tip-front">🔄 Rotate Plants</div>
+      <div class="tip-back">
+        Rotate indoor plants 90° each watering for balanced growth.
+        <button class="check-btn">Mark Done ✅</button>
+      </div>
+    </div>
+  </div>
+  <div class="tip-card" data-category="environment">
+    <div class="tip-inner">
+      <div class="tip-front">🌬 Give Fresh Air</div>
+      <div class="tip-back">
+        Place plants outside on mild, overcast days to improve air & pest control.
+        <button class="check-btn">Mark Done ✅</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Habit Tips -->
+  <div class="tip-card" data-category="habits">
+    <div class="tip-inner">
+      <div class="tip-front">🗣 Talk to Plants</div>
+      <div class="tip-back">
+        Talking or vibrating near plants may encourage growth.
+        <button class="check-btn">Mark Done ✅</button>
+      </div>
+    </div>
+  </div>
+  <div class="tip-card" data-category="habits">
+    <div class="tip-inner">
+      <div class="tip-front">💧 Deep & Infrequent Watering</div>
+      <div class="tip-back">
+        Water thoroughly less often; encourages strong roots.
+        <button class="check-btn">Mark Done ✅</button>
+      </div>
+    </div>
+  </div>
+  <div class="tip-card" data-category="habits">
+    <div class="tip-inner">
+      <div class="tip-front">⏸ Stop Fertilizing During Dormancy</div>
+      <div class="tip-back">
+        Avoid feeding plants during colder months; can harm dormant growth.
+        <button class="check-btn">Mark Done ✅</button>
+      </div>
+    </div>
+  </div>
+  <div class="tip-card" data-category="habits">
+    <div class="tip-inner">
+      <div class="tip-front">🪴 Consider Pot Material</div>
+      <div class="tip-back">
+        Terra-cotta pots dry faster; ceramic/plastic retain moisture longer.
+        <button class="check-btn">Mark Done ✅</button>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<!-- Confetti canvas -->
+<canvas id="confetti"></canvas>
+
+<script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+<script>
+const cards = document.querySelectorAll('.tip-card');
+const checkBtns = document.querySelectorAll('.check-btn');
+const progressBar = document.getElementById('progressBar');
+let completed = 0;
+const totalTips = cards.length;
+
+function updateProgress(){
+  const percent = Math.round((completed/totalTips)*100);
+  progressBar.style.width = percent + '%';
+  progressBar.textContent = percent + '%';
+}
+
+cards.forEach(card => {
+  card.addEventListener('click', ()=> {
+    card.classList.toggle('flip');
+  });
+});
+
+checkBtns.forEach(btn=>{
+  btn.addEventListener('click', e=>{
+    e.stopPropagation();
+    const back = btn.parentElement;
+    if(!back.classList.contains('done')){
+      back.classList.add('done');
+      btn.textContent = 'Completed ✅';
+      completed++;
+      confetti({particleCount:50, spread:70, origin:{y:0.6}});
+    }else{
+      back.classList.remove('done');
+      btn.textContent = 'Mark Done ✅';
+      completed--;
+    }
+    updateProgress();
+  });
+});
+
+// Filter buttons
+const filterBtns = document.querySelectorAll('.filter-buttons button');
+filterBtns.forEach(btn=>{
+  btn.addEventListener('click', ()=>{
+    const category = btn.dataset.filter;
+    cards.forEach(card=>{
+      if(category==='all'||card.dataset.category===category){
+        card.style.display='flex';
+      }else{
+        card.style.display='none';
+      }
+    });
+  });
+});
+</script>
+
+</body>
+</html>
